@@ -9,6 +9,8 @@ on:
 
 jobs:
   build:
+    env:
+      AWS_REGISTRY: 292961923009.dkr.ecr.us-east-1.amazonaws.com
     runs-on: ubuntu-latest
 
     steps:
@@ -33,16 +35,16 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{ secrets.AWS_REGION }}
+        AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
       run: |
-        aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ env.AWS_REGISTRY }}
 
     - name: Build Docker image
-      run: docker build . -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-react-app:${{ github.ref_name }}
+      run: docker build . -t ${{ env.AWS_REGISTRY }}/my-react-app:${{ github.ref_name }}
 
     - name: Push Docker image to Amazon ECR
-      run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-react-app:${{ github.ref_name }}
+      run: docker push ${{ env.AWS_REGISTRY }}/my-react-app:${{ github.ref_name }}
 
     - name: Deploy to Amazon ECS
       run: |
-        aws ecs update-service --cluster ref-card-02 --service ref-card-02-service --force-new-deployment --region $AWS_REGION
+        aws ecs update-service --cluster ref-card-02 --service ref-card-02-service --force-new-deployment --region us-east-1
