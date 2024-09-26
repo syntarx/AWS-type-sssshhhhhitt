@@ -1,4 +1,3 @@
-
 # Architecture Ref.Card 02 - React Application (serverless)
 
 Link zur Übersicht<br/>
@@ -39,10 +38,11 @@ Die App kann nun mit folgendem Befehl gestartet werden<br/>
 
 Die App kann nun im Browser unter der URL http://localhost:3000 betrachtet werden.
 
+## Inbetriebnahme mit Docker Container
 
+### Erstellen des Docker Images
 
-### Inbetriebnahme mit Docker Container
-folgt...
+Um die Anwendung in einem Docker Container zu betreiben, wird ein Docker Image benötigt. Ein Dockerfile, das die Build-Schritte definiert, befindet sich im Projekt. 
 
-
-
+```bash
+docker build -t react-app .
