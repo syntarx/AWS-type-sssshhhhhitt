@@ -1,9 +1,9 @@
-name: CI/CD Pipeline to GitHub Container Registry
+name: CI/CD Pipeline to AWS ECR
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*' # Auslösen bei Tag-Push
 
 jobs:
   build:
@@ -27,11 +27,12 @@ jobs:
     - name: Build the React app
       run: npm run build
 
-    - name: Log in to GitHub Container Registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    - name: Log in to Amazon ECR
+      run: |
+        aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
     - name: Build Docker image
-      run: docker build . -t ghcr.io/${{ github.actor }}/react-app:${{ github.sha }}
+      run: docker build . -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/react-app:${{ github.ref_name }}
 
-    - name: Push Docker image to GitHub Container Registry
-      run: docker push ghcr.io/${{ github.actor }}/react-app:${{ github.sha }}
+    - name: Push Docker image to Amazon ECR
+      run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/react-app:${{ github.ref_name }}
