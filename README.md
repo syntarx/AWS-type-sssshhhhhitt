@@ -31,6 +31,9 @@ Die Ausführung der Befehle erfolgt im Projektordner
 Builden mit Node/npm<br/>
 ```$ npm install```
 
+Loginangaben mit secrets weitergeben:
+![alt text](image.png)
+
 Das Projekt wird gebaut und die entsprechenden Dateien unter dem Ordner node_modules gespeichert.
 
 Die App kann nun mit folgendem Befehl gestartet werden<br/>
