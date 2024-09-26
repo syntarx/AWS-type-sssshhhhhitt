@@ -49,3 +49,7 @@ Um die Anwendung in einem Docker Container zu betreiben, wird ein Docker Image b
 
 ```bash
 docker build -t react-app .
+```
+
+Container Registry hat funktioniert:
+![alt text](image-1.png)
