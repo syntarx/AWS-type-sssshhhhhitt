@@ -53,3 +53,11 @@ docker build -t react-app .
 
 Container Registry hat funktioniert:
 ![alt text](image-1.png)
+
+
+# AWS Kabis
+
+## Lieber Meister Cavuoti
+
+Dieses AWS Zeugs hat mich schier in den Wahnsinn getrieben. Doch ein Magier aus unserer Klasse konnte mir etwas unter die Arme greifen. Hier mein Beweis-Screenshot, dass es funktioniert hat:
+![alt text](image-2.png)
