@@ -40,10 +40,10 @@ jobs:
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ env.AWS_REGISTRY }}
 
     - name: Build Docker image
-      run: docker build . -t ${{ env.AWS_REGISTRY }}/my-react-app:${{ github.ref_name }}
+      run: docker build . -t ${{ env.AWS_REGISTRY }}/gugus:${{ github.ref_name }}
 
     - name: Push Docker image to Amazon ECR
-      run: docker push ${{ env.AWS_REGISTRY }}/my-react-app:${{ github.ref_name }}
+      run: docker push ${{ env.AWS_REGISTRY }}/gugus:${{ github.ref_name }}
 
     - name: Deploy to Amazon ECS
       run: |
